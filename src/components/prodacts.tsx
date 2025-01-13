@@ -15,11 +15,43 @@ const Prodacts = ({ id, title, price, image }: productDataType) => {
   const itemInCart = cartItems.find(item => item.id === id);
   const [isAdded, setIsAdded] = useState(false);
 
+  // Check localStorage on component mount
+  useEffect(() => {
+    const cartData = localStorage.getItem('bacola-cart');
+    if (cartData) {
+      const { items } = JSON.parse(cartData);
+      const existingItem = items.find((item: any) => item.id === id);
+      setIsAdded(!!existingItem);
+    }
+  }, [id]);
+
+  // Update state when cart changes
   useEffect(() => {
     if (itemInCart?.quantity === 0 || !itemInCart) {
       setIsAdded(false);
+      // Update localStorage
+      const cartData = localStorage.getItem('bacola-cart');
+      if (cartData) {
+        const cart = JSON.parse(cartData);
+        cart.items = cart.items.filter((item: any) => item.id !== id);
+        localStorage.setItem('bacola-cart', JSON.stringify(cart));
+      }
+    } else {
+      setIsAdded(true);
+      // Update localStorage
+      const cartData = localStorage.getItem('bacola-cart');
+      if (cartData) {
+        const cart = JSON.parse(cartData);
+        const existingItemIndex = cart.items.findIndex((item: any) => item.id === id);
+        if (existingItemIndex >= 0) {
+          cart.items[existingItemIndex] = itemInCart;
+        } else {
+          cart.items.push(itemInCart);
+        }
+        localStorage.setItem('bacola-cart', JSON.stringify(cart));
+      }
     }
-  }, [itemInCart]);
+  }, [itemInCart, id]);
 
   const handleAddToCart = () => {
     dispatch(addToCart({ id, title, price, image, quantity: 0 }));

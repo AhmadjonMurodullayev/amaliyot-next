@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { productDataType } from "@/service/queryes";
 import React, { useState, useEffect } from "react";
@@ -7,12 +7,12 @@ import { Heart, Maximize2, Minus, Plus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "@/redux/features/cartSlice";
 import { RootState } from "@/redux/store";
-import Link from 'next/link';
+import Link from "next/link";
 
 function NewProdact({ id, title, price, image }: productDataType) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const itemInCart = cartItems.find(item => item.id === id);
+  const itemInCart = cartItems.find((item) => item.id === id);
   const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
@@ -22,20 +22,24 @@ function NewProdact({ id, title, price, image }: productDataType) {
   }, [itemInCart]);
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ id, title, price, image, quantity: 0 }));
+    dispatch(addToCart({ id, title, price, image, quantity: 0 } as any));
     setIsAdded(true);
   };
 
   const handleIncrement = () => {
-    dispatch(addToCart({ id, title, price, image, quantity: 0 }));
+    dispatch(addToCart({ id, title, price, image, quantity: 0 } as any));
   };
 
   const handleDecrement = () => {
     if (itemInCart?.quantity === 1) {
-      dispatch(removeFromCart(id));
+      if (id !== undefined) {
+        dispatch(removeFromCart(id));
+      }
       setIsAdded(false);
     } else {
-      dispatch(removeFromCart(id));
+      if (id !== undefined) {
+        dispatch(removeFromCart(id));
+      }
     }
   };
 

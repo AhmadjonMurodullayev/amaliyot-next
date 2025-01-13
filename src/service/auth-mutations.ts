@@ -21,7 +21,7 @@ export const registerData = async (userData: {
     throw new Error("Registration failed");
   }
 
-  cookies().set("token", JSON.stringify(data)); // Adjust as per actual token response
+  cookies().set("token", JSON.stringify(data));
   return data;
 };
 
@@ -41,7 +41,6 @@ export const loginData = async (userToken: { phone_number: string }) => {
   const data = await res.json();
 
   if (!res.ok) {
-    // throw new Error("Login failed");
     console.log(res);
   }
   console.log(res);

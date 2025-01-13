@@ -53,7 +53,7 @@ const cartSlice = createSlice({
         0
       );
 
-      // localStorage ga saqlash
+      // Save to localStorage
       localStorage.setItem('bacola-cart', JSON.stringify(state));
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
@@ -72,7 +72,7 @@ const cartSlice = createSlice({
           0
         );
 
-        // localStorage ga saqlash
+        // Save to localStorage
         localStorage.setItem('bacola-cart', JSON.stringify(state));
       }
     },
@@ -88,7 +88,7 @@ const cartSlice = createSlice({
           0
         );
 
-        // localStorage ga saqlash
+        // Save to localStorage
         localStorage.setItem('bacola-cart', JSON.stringify(state));
       }
     },
