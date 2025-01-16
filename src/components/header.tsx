@@ -81,7 +81,10 @@ const Header = () => {
             </div>
 
             {/* Cart with Price */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
+              <Link className="hidden lg:block" href="/register">
+                <User />
+              </Link>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold text-gray-900 lg:text-base">
                   ${totalAmount.toFixed(2)}
